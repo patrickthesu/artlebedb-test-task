@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
+from libraries.models import Library, Contacts, Coordinates
+
 def get_data (page_url: str, download_path: str,  selector: str = ".download_btn") -> None:
         soup = BeautifulSoup (requests.get(page_url).text, "html.parser")
         versions = soup.select (selector)
@@ -21,3 +23,24 @@ def get_data (page_url: str, download_path: str,  selector: str = ".download_btn
 
 def _get_host_from_url (url: str) -> str:
     return '{url.scheme}://{url.netloc}'.format(url = urlparse(url))
+
+def append_library (libraryData: dict) -> Library:
+    return Library.objects.create (
+        timezone = "",
+        name = "",
+        description = "",
+        fullAdress = "",
+        coordintaes = "",
+        )
+
+def _append_contacts (contactsData: dict) -> Contacts:
+    return Contacts.objects.create(
+        email = "",
+        phone = "",
+        )
+
+def _append_coordinates (coordinatesData: dict) -> Coordinates:
+    return Coordinates.objects.create (
+        posx = "",
+        posy = "",
+        )
